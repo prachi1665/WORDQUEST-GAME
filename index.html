@@ -1,23 +1,183 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tap Color Game</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Word Connect Game PRO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(4, 70px);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .box {
+      width: 70px;
+      height: 70px;
+      background: white;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      user-select: none;
+      touch-action: none;
+    }
+
+    .active {
+      background: orange;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .correct {
+      background: green;
+      color: white;
+    }
+
+    #wordBox {
+      margin-top: 20px;
+      font-size: 22px;
+      min-height: 30px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #333;
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
 
-<h1>🎮 Tap Color Challenge</h1>
+<h1>🎮 Word Connect PRO</h1>
 
-<h2>Score: <span id="score">0</span></h2>
+<h3>Score: <span id="score">0</span></h3>
 
-<p>Tap the GREEN target tiles!</p>
+<div id="wordBox"></div>
 
 <div id="grid"></div>
 
-<button onclick="startGame()">Start Game</button>
+<button onclick="resetGame()">Reset</button>
 
-<script src="script.js"></script>
+<script>
+let letters = ["C","A","T","D","O","G","B","A","T","P","E","N","S","H","E","E"];
+let words = ["CAT","DOG","BAT","PEN"];
+
+let grid = document.getElementById("grid");
+let wordBox = document.getElementById("wordBox");
+
+let selected = [];
+let score = 0;
+let isDragging = false;
+
+function loadGrid() {
+  grid.innerHTML = "";
+
+  letters.forEach(l => {
+    let div = document.createElement("div");
+    div.classList.add("box");
+    div.innerText = l;
+
+    div.addEventListener("touchstart", start);
+    div.addEventListener("touchmove", move);
+    div.addEventListener("touchend", end);
+
+    div.addEventListener("mousedown", start);
+    div.addEventListener("mouseover", drag);
+
+    grid.appendChild(div);
+  });
+}
+
+function start(e){
+  isDragging = true;
+  clearWord();
+  addLetter(e.target);
+}
+
+function drag(e){
+  if(isDragging){
+    addLetter(e.target);
+  }
+}
+
+function move(e){
+  let touch = e.touches[0];
+  let el = document.elementFromPoint(touch.clientX, touch.clientY);
+  if(el && el.classList.contains("box")){
+    addLetter(el);
+  }
+}
+
+function end(){
+  isDragging = false;
+  checkWord();
+}
+
+function addLetter(el){
+  if(!el.classList.contains("active") && !el.classList.contains("correct")){
+    el.classList.add("active");
+    selected.push(el.innerText);
+    wordBox.innerText = selected.join("");
+  }
+}
+
+function checkWord(){
+  let word = selected.join("");
+
+  if(words.includes(word)){
+    document.querySelectorAll(".box.active").forEach(b=>{
+      b.classList.remove("active");
+      b.classList.add("correct");
+    });
+
+    score += 10;
+    document.getElementById("score").innerText = score;
+    navigator.vibrate(50);
+  } else {
+    document.querySelectorAll(".box.active").forEach(b=>{
+      b.classList.remove("active");
+    });
+  }
+
+  clearWord();
+}
+
+function clearWord(){
+  selected = [];
+  wordBox.innerText = "";
+}
+
+function resetGame(){
+  selected = [];
+  score = 0;
+  document.getElementById("score").innerText = score;
+  loadGrid();
+}
+
+loadGrid();
+</script>
 
 </body>
 </html>
