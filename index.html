@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WordQuest Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>🧠 WordQuest</h1>
+
+<h2 id="level">Level 1</h2>
+
+<div class="letters" id="letters"></div>
+
+<input type="text" id="input" placeholder="Enter word">
+
+<button onclick="checkWord()">Submit</button>
+<button onclick="nextLevel()">Next Level</button>
+
+<h3>Found Words:</h3>
+<ul id="foundWords"></ul>
+
+<h3 id="score">Score: 0</h3>
+
+<p id="message"></p>
+
+<script src="script.js"></script>
+
+</body>
+</html>
