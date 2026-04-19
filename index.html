@@ -1,34 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WordQuest Pro Game</title>
+    <title>Tap Color Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>🧠 WordQuest Pro</h1>
+<h1>🎮 Tap Color Challenge</h1>
 
-<h2 id="level">Level 1</h2>
+<h2>Score: <span id="score">0</span></h2>
 
-<div class="letters" id="letters"></div>
+<p>Tap the GREEN target tiles!</p>
 
-<input type="text" id="input" placeholder="Enter word">
+<div id="grid"></div>
 
-<br>
-
-<button onclick="checkWord()">Submit</button>
-<button onclick="showHint()">💡 Hint</button>
-
-<h3 id="timer">⏱ Time: 60</h3>
-<h3 id="lives">❤️ Lives: 3</h3>
-
-<h3>Found Words:</h3>
-<ul id="foundWords"></ul>
-
-<h3 id="score">Score: 0</h3>
-
-<p id="message"></p>
+<button onclick="startGame()">Start Game</button>
 
 <script src="script.js"></script>
 
