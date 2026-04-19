@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WordQuest Game</title>
+    <title>WordQuest Pro Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>🧠 WordQuest</h1>
+<h1>🧠 WordQuest Pro</h1>
 
 <h2 id="level">Level 1</h2>
 
@@ -15,8 +15,13 @@
 
 <input type="text" id="input" placeholder="Enter word">
 
+<br>
+
 <button onclick="checkWord()">Submit</button>
-<button onclick="nextLevel()">Next Level</button>
+<button onclick="showHint()">💡 Hint</button>
+
+<h3 id="timer">⏱ Time: 60</h3>
+<h3 id="lives">❤️ Lives: 3</h3>
 
 <h3>Found Words:</h3>
 <ul id="foundWords"></ul>
